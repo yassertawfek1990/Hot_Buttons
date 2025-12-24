@@ -470,9 +470,9 @@ body {
                 // Create a map of team scores (team number -> score)
                 const scoreMap = {};
                 scoreData.forEach(row => {
-                    if (row.Team && row.Score !== undefined && row.Score !== null) {
+                    if (row.Team && row.All !== undefined && row.Score !== null) {
                         const teamNum = String(row.Team).trim();
-                        scoreMap[teamNum] = parseFloat(row.Score) || 0;
+                        scoreMap[teamNum] = parseFloat(row.All) || 0;
                     }
                 });
                 
@@ -496,13 +496,13 @@ body {
                 // Match teams with score data using team number
                 teams.forEach(team => {
                     if (scoreMap[team.teamNumber] !== undefined) {
-                        team.score = scoreMap[team.teamNumber];
+                        team.All = scoreMap[team.teamNumber];
                     }
                 });
                 
                 // Calculate total stars including score
                 teams.forEach(team => {
-                    team.totalStars = team.stars + team.score;
+                    team.totalStars = team.stars + team.All;
                 });
                 
                 // Sort by total stars (highest first)
@@ -741,7 +741,7 @@ body {
                     <div class="team-card ${cardClass}">
                         ${renderCardAvatar(team)}
                         <div class="card-name">${team.name}${isLeader ? ' 👑' : ''}</div>
-                        <div class="card-score">${team.score}/25</div>
+                        <div class="card-score">${team.All}/25</div>
                     </div>
                 `;
             });
